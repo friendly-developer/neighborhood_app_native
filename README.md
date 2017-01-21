@@ -12,7 +12,9 @@ This website uses the current location and lists out all the Restaurants/Bars in
  
 
 ## Steps to run
-* Use [this website to ](https://gvsvarun.github.io/neighborhood_app) launch and view  
+* Use [this website to ](https://gvsvarun.github.io/neighborhood_app_native/) launch and view the map.
+* Use the text box to filter out of the options that are available
+* Click on the marker to display its ratings
 
 Copyright (c) 2016 Varun G
 
