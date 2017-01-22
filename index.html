@@ -1,55 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Neighborhood map</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="styles/main.css">
-</head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mpas with Google Api Markers</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="styles/main.css"> </head>
+
 <body>
-	<div class="container">
-		<header class="header">
-			<!-- <ul class="nav nav-pills pull-left">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul> -->
+    <header class="header text-center">
+        <!-- <ul class="nav nav-pills pull-left"> <li class="active"><a href="#">Home</a></li> <li><a href="#">About</a></li> <li><a href="#">Contact</a></li> </ul> -->
+        <h3 class="text-muted">Neighborhood Map of Thuraipakkam, Chennai with Google Locations and Zomato Ratings</h3>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">Search: <input type="text" class="search-field" data-bind="textInput: filtered_item"></div>
+        </div>
+        <aside>
+            <div class="col-xs-12  col-md-12 col-lg-3 left-menu">
+                <ul class="nav nav-pills" data-bind="foreach: places">
+                    <li> <b data-bind="text: name, click : $parent.textClick"></b> </li>
+                </ul>
+        </aside>
+        <section class="col-xs-12 col-md-12 col-lg-9 map-loc">
+            <div id="mapArea"> </div>
+        </section>
+        </div>
+    </div>
 
-			<h3 class="text-muted">Neighborhood Map of Chennai</h3>
-		</header>
-		<div>Search: <input type="text" class="search-field" data-bind="textInput: filtered_item"></div>
-		<aside>
-		<div class="col-xs-12  col-md-12 col-lg-3 left-menu">
-			<ul class="nav nav-pills" data-bind="foreach: places">
-				<li>
-					<b data-bind="text: name, click : $parent.textClick"></b>
-				</li>
-			</ul>
-		</aside>
-		<section class="col-xs-12 col-md-12 col-lg-9 map-loc">
-			<div id ="mapArea">
-
-			</div>
-		</section>
-
-
-
-		</div>
-		<footer class="footer text-right">
-		<p>♥ by Varun G</p>
-		<p>Powered by Zomato</p>
-		</footer>
-	</div>
-
-	<script src = "lib/jquery-3.1.1.js"></script>
-	<script src = "lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src = "lib/knockout-3.4.1.js"></script>
-	<script src = "js/main.js"></script>
-	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap&onerror=errorHAndler">
-    </script>
+    <footer class="footer text-right">
+        <p>♥ by Varun G</p>
+        <p>Powered by Zomato</p>
+    </footer>
+    <script src="lib/jquery-3.1.1.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/knockout-3.4.1.js"></script>
+    <script src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap&onerror=errorHAndler"></script>
 </body>
+
 </html>
