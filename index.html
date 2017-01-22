@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="header">
+		<header class="header">
 			<!-- <ul class="nav nav-pills pull-left">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#">About</a></li>
@@ -19,37 +19,37 @@
 			</ul> -->
 
 			<h3 class="text-muted">Neighborhood Map of Chennai</h3>
-		</div>
-		<div>Search: <input type='text' class="search-field" data-bind="textInput: filtered_item"></div>
-		<div class="row">
+		</header>
+		<div>Search: <input type="text" class="search-field" data-bind="textInput: filtered_item"></div>
+		<aside>
 		<div class="col-xs-12  col-md-12 col-lg-3 left-menu">
 			<ul class="nav nav-pills" data-bind="foreach: places">
 				<li>
 					<b data-bind="text: name, click : $parent.textClick"></b>
 				</li>
 			</ul>
-		</div>
-
-		<div class="col-xs-12 col-md-12 col-lg-9 map-loc">
-			<div id ="mapArea" style="height: 100%">
+		</aside>
+		<section class="col-xs-12 col-md-12 col-lg-9 map-loc">
+			<div id ="mapArea">
 
 			</div>
-		</div>
+		</section>
 
 
 
 		</div>
-		<div class="footer text-right">
+		<footer class="footer text-right">
 		<p>♥ by Varun G</p>
-		</div>
+		<p>Powered by Zomato</p>
+		</footer>
 	</div>
 
-	<script src = 'lib/jquery-3.1.1.js'></script>
-	<script src = 'lib/bootstrap/js/bootstrap.min.js'></script>
-	<script src = 'lib/knockout-3.4.1.js'></script>
-	<script src = 'js/main.js'></script>
+	<script src = "lib/jquery-3.1.1.js"></script>
+	<script src = "lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src = "lib/knockout-3.4.1.js"></script>
+	<script src = "js/main.js"></script>
 	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap&onerror=errorHAndler">
     </script>
 </body>
 </html>

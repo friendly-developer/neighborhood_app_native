@@ -1,4 +1,6 @@
-'use strict';
+
+   'use strict';
+
 const places =
 	[{
 		"name": "747",
@@ -64,32 +66,38 @@ const places =
 			"lng": 80.2393416667
 		}
 	}],
-	my_google_api_key = 'AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co',
-	my_zomato_api_key = 'e1b364d49796cd5f6310b42290c41c18',
-	zomato_url = 'https://developers.zomato.com/api/v2.1/restaurant?apikey=' + my_zomato_api_key + '&res_id=';
-let def_name = places[0].name,
-	contentString = '';
-const form_html_data = function(response) {
+	//my_google_api_key = 'AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co',
+	myZomatoKey = 'e1b364d49796cd5f6310b42290c41c18',
+	zomatoUrl = 'https://developers.zomato.com/api/v2.1/restaurant?apikey=' + myZomatoKey + '&res_id=';
+let contentString = '',Infowindow;
+const formHtmlData = function (response) {
 	if (!response) return '';
-	return '<h1>' + response.name + '</h1>' +
+	const na="NA",
+	name = response.name||na,
+	cuisines = response.cuisines||na,
+	currency = response.currency||na,
+	average_cost_for_two=response.average_cost_for_two||na,
+	aggregate_rating=response.user_rating?response.user_rating.aggregate_rating||na:na,
+	rating_color = response.user_rating?response.user_rating.rating_color||na:na;
+	return '<h1>' + name + '</h1>' +
 		'<div id="bodyContent">' +
-		'<p><b>' + response.name + '</b>,is famous for ' + response.cuisines + '. The average cost for two people generally is ' + response.currency + ' ' + response.average_cost_for_two + '</p>' +
-		'<p>Rating :  <strong style="color:#' + response.user_rating.rating_color + '">' + response.user_rating.aggregate_rating + '</strong></p>' +
+		'<p><b>' + name + '</b> is famous for ' + cuisines + ' cuisines. The average cost for two people generally is ' + currency + ' ' + average_cost_for_two + '</p>' +
+		'<p>Rating :  <strong style="color:#' + rating_color + '">' + aggregate_rating + '</strong></p>' +
 		'</div>' +
-		'</div>'
-}
-const populate_content_string = function(place, map, marker) {
-	$.get(zomato_url + place.res_id)
-		.done(function(response) {
-			contentString = form_html_data(response)
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
-			infowindow.open(map, marker);
+		'</div>';
+};
+
+const populateContentString = function (place, map, marker) {
+	$.get(zomatoUrl + place.res_id)
+		.done(function (response) {
+			contentString = formHtmlData(response);
+			Infowindow.setContent(contentString)
+			Infowindow.close();
+			Infowindow.open(map, marker);
 		})
-		.fail(function() {
+		.fail(function () {
 			alert("error");
-		})
+		});
 
 };
 
@@ -101,9 +109,9 @@ const myLatLng = {
 
 let map = {},
 	markers = [];
-const set_map_markers = function(placess) {
-	if(!window.google) return'';
-	markers = placess.map(function(place) {
+const setMapMarkers = function (placess) {
+	if (!window.google) return '';
+	markers = placess.map(function (place) {
 
 		var marker = new google.maps.Marker({
 			position: place.loc,
@@ -111,8 +119,12 @@ const set_map_markers = function(placess) {
 			icon: 'https://maps.google.com/mapfiles/ms/micons/snack_bar.png', //image,
 			title: place.name
 		});
-		marker.addListener('click', function() {
-			populate_content_string(place, map, marker);
+		marker.addListener('click', function () {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+		setTimeout(function () {
+			marker.setAnimation(null);
+		}, 1400);
+			populateContentString(place, map, marker);
 
 		});
 		return marker;
@@ -121,46 +133,43 @@ const set_map_markers = function(placess) {
 
 
 
-function Restaurants_around_given_data(data) {
+function NearByRestaurantsClass(data) {
 	var self = this;
 	self.filtered_item = ko.observable('');
 	//self.places = ko.observableArray(places);
-	self.textClick = function(place) {
-		const marker = new google.maps.Marker({
-			position: place.loc,
-			map: map,
-			icon: 'https://maps.google.com/mapfiles/ms/micons/snack_bar.png', //image,
-			title: place.name
-		});
-		map.setCenter(marker.position); //center map on bouncing marker
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-		setTimeout(function() {
-			marker.setAnimation(null);
-		}, 1400);
+	self.textClick = function (place) {
+		markers.forEach(x=>{
+			if(x.title===place.name)
+				google.maps.event.trigger(x, 'click');
+		})
 	};
-	self.places = ko.computed(function() {
+	self.places = ko.computed(function () {
 		let markersArr = [];
 		markers.forEach(x => x.setMap(null));
 		markers = [];
 		if ((self.filtered_item() !== '')) {
-			markersArr = places.filter(function(place) {
+			markersArr = places.filter(function (place) {
 				return place.name.toLowerCase().match(self.filtered_item().toLowerCase());
 			});
 		} else {
 			markersArr = places;
 		}
-		set_map_markers(markersArr);
-		console.log('markersArr',markersArr);
-		console.log('markers',markers)
+		setMapMarkers(markersArr);
+		console.log('markersArr', markersArr);
+		console.log('markers', markers);
 		return markersArr;
 	});
-};
+}
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('mapArea'), {
 		zoom: 14,
 		center: myLatLng
 	});
-	set_map_markers(places);
-	ko.applyBindings(new Restaurants_around_given_data());
-};
+	Infowindow = 	new google.maps.InfoWindow();
+	setMapMarkers(places);
+	ko.applyBindings(new NearByRestaurantsClass());
+}
+function errorHandler(){
+	alert('Something went wrong. Try again later. If the issue persists, try using a different browser')
+}

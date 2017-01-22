@@ -35,7 +35,9 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-
+#mapArea{
+  height: 100%;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
