@@ -1,4 +1,4 @@
-# Neighborhood App:
+# Location Map based on Google Maps Api and Zomato Api :
 
 This website uses the current location and lists out all the Restaurants/Bars in the neighborhood and on selecting one of them it also provides its rating (courtesy : Zomato)
 
