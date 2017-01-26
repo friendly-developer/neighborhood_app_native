@@ -8,24 +8,47 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="styles/main.css"> </head>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/icomoon.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+ </head>
 
 <body>
     <header class="header text-center">
         <!-- <ul class="nav nav-pills pull-left"> <li class="active"><a href="#">Home</a></li> <li><a href="#">About</a></li> <li><a href="#">Contact</a></li> </ul> -->
-        <h3 class="text-muted">Neighborhood Map of Thuraipakkam, Chennai with Google Locations and Zomato Ratings</h3>
+         <a href="#" class="menu-icon-link">
+                <i class="icon-list"></i>
+            </a>
+        <h3 class="heading">Neighborhood Map of Thuraipakkam, Chennai with Google Locations and Zomato Ratings</h3>
+
     </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">Search: <input type="text" class="search-field" data-bind="textInput: filtered_item"></div>
+    <aside>
+        <div class="slide-menu">
+            <ul class="feed-list" data-bind="foreach: places">
+                    <!-- ko if:$data.displayIcon -->
+                    <li> <strong data-bind="text: title, click : $parent.textClick"></strong> </li>
+                    <!-- /ko -->
+                    </ul>
         </div>
-        <aside>
-            <div class="col-xs-12  col-md-12 col-lg-3 left-menu">
+            <!-- <div class="col-xs-12  col-md-12 col-lg-3 left-menu">
                 <ul class="nav nav-pills" data-bind="foreach: places">
-                    <li> <b data-bind="text: name, click : $parent.textClick"></b> </li>
-                </ul>
+
+                    <li> <b data-bind="text: title, click : $parent.textClick"></b> </li>
+
+                </ul> -->
         </aside>
-        <section class="col-xs-12 col-md-12 col-lg-9 map-loc">
+    <div class="container">
+     <!-- ko if:error -->
+    <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12 messages" data-bind="text:errorMsg"></div>
+        </div>
+        <!-- /ko -->
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12 search-bar">Search: <input type="text" class="search-field" data-bind="textInput: filtered_item"></div>
+        </div>
+
+        <section class="col-xs-12 col-md-12 col-lg-12 map-loc">
             <div id="mapArea"> </div>
         </section>
         </div>
@@ -39,7 +62,7 @@
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="lib/knockout-3.4.1.js"></script>
     <script src="js/main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap&onerror=errorHAndler"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtXlY4M3YIPARLv7l4nP1dHyU7iZEX3co&callback=initMap" onerror="errorHandler()"></script>
 </body>
 
 </html>

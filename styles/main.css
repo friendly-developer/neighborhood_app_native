@@ -8,42 +8,89 @@ body {
   height: 600px;
 
 }
-/* Everything gets side spacing for mobile first views */
-.header,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
 
 #mapArea{
   height: 100%;
+}
+.header {
+    background: #3d544e;
+    color: #fff;
+    top: 0;
+    width: 100%;
+    padding: 0.5em 1em;
+    display: flex;
+}
+.heading{
+  padding-left: 7em;
+}
+li{
+  padding: 0.5em 0.5em 0;
+}
+.menu-icon-link{
+
+    padding-top: 0.75em;
+    padding-left: 0.5em;
+    zoom: 1.5;
+}
+.icon-list {
+    font-size: 1.5em;
+    color: #FFF;
+}
+
+.messages{
+    background-color: #ffc150;
+    border: 1px solid;
+    text-align: center;
+}
+.slide-menu {
+     color: antiquewhite;
+    position: absolute;
+    top: 5.5em;
+    padding: 1em;
+    background: #3d544e;
+    height: 100%;
+    width: 20em;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.2s;
+}
+
+.slide-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.slide-menu li {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.slide-menu li a {
+    color: #fff;
+    display: block;
+    padding: 0.5em 0;
+}
+.search-bar{
+    background-color: antiquewhite;
+    text-align: center;
+}
+.menu-hidden .slide-menu {
+    transform: translate3d(-20em, 0, 0);
+    transition: transform 0.2s;
 }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
     max-width: 730px;
   }
+.slide-menu {
+  z-index:5;
 
+}
+#mapArea{
+  width:145%
+}
   /* Remove the padding we set earlier */
   .header,
   .footer {
@@ -55,4 +102,19 @@ body {
   .header {
     margin-bottom: 30px;
   }
+}
+@media screen and (max-width: 740px) {
+.slide-menu {
+  z-index:10;
+  top: 8.25em;
+}
+.heading{
+  padding-left: 0;
+
+}
+}
+@media screen and (max-width: 450px) {
+.slide-menu {
+   top: 12em;
+}
 }
