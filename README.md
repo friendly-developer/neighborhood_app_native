@@ -9,6 +9,7 @@ This website uses the current location and lists out all the Restaurants/Bars in
 * *Javascript*
 * Bootstrap Components
 * Bootstrap
+* Google Analytics
  
 
 ## Steps to run
